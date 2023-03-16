@@ -1,12 +1,15 @@
 net_disk v1.0
 
-说明
+description:
+
     -The first phase of the project has been tentatively completed, and the architecture may undergo major changes as the database and more features are introduced later.
+
     -Subsequent updates will continue to add notes and upload code.
 
 by levi
 
-1. how to use：
+1. how to use:
+
     After changing the ip address in the configuration file in the conf, the IP address can be used normally.
     Follow the code prompts, add the specified parameters run to establish the connection between the server and the client.
 
@@ -29,12 +32,16 @@ by levi
     -touch: Used to create new empty file
 
 
-2.Code Architecture  
+2. Code Architecture:
+
     Server main process: receives command requests from clients and assigns all requests to worker child processes.
+
     Service terminal process: Uses socketpair to receive tasks from the master process and respond to commands.
+    
     Client: sends requests to the server and responds to the request processing result of the server
 
-3. Pending function optimization
+3. Pending function optimization:
+
     In process pool mode, it can efficiently respond to connection and task requests from multiple clients but without high concurrency. The main process and child process tasks are not evenly distributed. Later, the code architecture will be refactored and thread pools will be adopted
 
     User registration, user login, optimized gets and puts for breakpoint resume and second transmission
