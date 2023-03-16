@@ -1,36 +1,44 @@
 net_disk v1.0
 
 说明
-    -目前暂时完成了项目的第一期，后期再引入数据库和更多功能后，架构可能会有较大的调整
-    -后续版本的更新会继续补充说明，并上传代码，但不会覆写一期的代码，读者可自行参考学习
-    -新手小白的第一次git，代码若有其他未知bug，还望不吝赐教
+    -The first phase of the project has been tentatively completed, and the architecture may undergo major changes as the database and more features are introduced later.
+    -Subsequent updates will continue to add notes and upload code.
 
 by levi
 
-1. 如何使用：
-    修改conf里的配置文件中的ip地址后，即可正常使用
-    按照代码提示，添加指定参数运行建立服务端与客户端的连接
+1. how to use：
+    After changing the ip address in the configuration file in the conf, the IP address can be used normally.
+    Follow the code prompts, add the specified parameters run to establish the connection between the server and the client.
 
-    cd: 用于打开客户端的指定文件目录
-    ls: 列出该文件目录下的所有文件，并显示文件类型和大小
-    pwd: 获取本地工作目录并显示
-    gets: 下载服务端文件到本地客户端
-    puts: 将本地文件上传到服务端
-    remove: 删除指定文件
-    mkdir: 在本地工作目录中创建空目录(暂不支持跟路径参数)
-    rmdir: 删除空目录
-    touch: 创建空文件
+    -cd: Used to open the specified file directory on the client
 
-2. 代码架构    
-    服务端主进程：接收客户端的command请求，并将所有的请求分给worker子进程处理
-    服务端子进程：利用socketpair接收主进程的任务，并对命令进行响应
-    客户端：向服务端发送请求，同时也会响应服务端的请求处理结果
+    -ls: Used to list all the files in the file directory and show the file type and size
 
-3. 功能优化
-    进程池模式，可以高效响应多个客户端的连接和任务请求，但并发度不高。主进程和子进程任务分配不均，后期会考虑重构代码架构，采用线程池
+    -pwd: Used to get the local working directory and display it
 
-    用户注册，用户登录，优化gets和puts实现断点续传和秒传
+    -gets: Used to download files from server to client(support breakpoint resume)
+
+    -puts: Used to upload files from client to server
+
+    -remove: Used to delete specified file
+
+    -mkdir: Used to create an empty directory in the local working directory(path parameter unsupported at this time)
+
+    -rmdir: Used to delete empty directory 
+
+    -touch: Used to create new empty file
+
+
+2.Code Architecture  
+    Server main process: receives command requests from clients and assigns all requests to worker child processes.
+    Service terminal process: Uses socketpair to receive tasks from the master process and respond to commands.
+    Client: sends requests to the server and responds to the request processing result of the server
+
+3. Pending function optimization
+    In process pool mode, it can efficiently respond to connection and task requests from multiple clients but without high concurrency. The main process and child process tasks are not evenly distributed. Later, the code architecture will be refactored and thread pools will be adopted
+
+    User registration, user login, optimized gets and puts for breakpoint resume and second transmission
     
-    rmdir并不支持删除非空目录，后续可以继续优化event_loop函数
+    rmdir does not support deleting non-empty directories. You can continue to optimize event_loop later
     
-    从市面网盘角度考虑，理应增设cp命令和mv命令
+    
